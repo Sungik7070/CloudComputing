@@ -1,0 +1,42 @@
+<html>
+<body>
+     <h2> Firebase IoT Weather Monitor using Object Data
+     <h2 id="temp"> </h2>
+     <h2 id="humi"> </h2>
+
+      <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js"></script>
+
+      <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+         apiKey: "AIzaSyBzfvFlPM-pvncRcNQR4C0i6kjvP-tujKY",
+         authDomain: "object-push.firebaseapp.com",
+         databaseURL: "https://object-push.firebaseio.com",
+         projectId: "object-push",
+         storageBucket: "object-push.appspot.com",
+         messagingSenderId: "316331924750",
+         appId: "1:316331924750:web:7f623fbf6fea1d4e208b5f",
+         measurementId: "G-5P7SE4PKEC"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+      </script>
+
+      <script>
+        // var dbRefHumi = firebase.database().ref().child('logDHT/Humidity');
+        // var dbRefTemp = firebase.database().ref().child('logDHT/Temperature');
+        var objRef = firebase.database().ref().child('logDHT/');
+        objRef.on("child_added", function(snapshot) {
+          console.log(snapshot.val());
+          var newHumi = snapshot.val().humidity;
+          var newTemp = snapshot.val().temperature;
+          humi.innerText = "Humidity : " + newHumi + "%";
+          temp.innerText = "Temperature : " + newTemp + "℃";
+          // console.log(newHumi);
+          // console.log(newTemp);
+        })
+      </script>
+</body>
+</html>
